@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGENDA DEV - Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #161719;
+            color: #ffffff;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #1e2127;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #ffffff;
+            margin-bottom: 24px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 12px 0;
+            border-radius: 4px;
+            border: 1px solid #333;
+            background-color: #2c2f36;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 16px;
+        }
+
+        .signup-link {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 14px;
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .signup-link:hover {
+            text-decoration: underline;
+        }
+
+        .action-button {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #007bff;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .action-button:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="login-box">
+        <h1>AGENDA DEV</h1>
+        <div class="input-group">
+            <input type="text" id="username" placeholder="Usuário" />
+            <input type="password" id="password" placeholder="Senha" />
+        </div>
+        <button onclick="login()">Entrar</button>
+        <button class="action-button" onclick="showSignup()">Cadastrar</button>
+    </div>
+
+    <div class="container" id="signup-box" style="display: none;">
+        <h1>AGENDA DEV - Cadastro</h1>
+        <div class="input-group">
+            <input type="text" id="new-username" placeholder="Novo Usuário" />
+            <input type="password" id="new-password" placeholder="Nova Senha" />
+        </div>
+        <button onclick="signup()">Cadastrar</button>
+        <button class="action-button" onclick="showLogin()">Voltar para Login</button>
+    </div>
+
+    <script>
+        // Função para alternar para o formulário de cadastro
+        function showSignup() {
+            document.getElementById("login-box").style.display = "none";
+            document.getElementById("signup-box").style.display = "block";
+        }
+
+        // Função para alternar para o formulário de login
+        function showLogin() {
+            document.getElementById("signup-box").style.display = "none";
+            document.getElementById("login-box").style.display = "block";
+        }
+
+        // Função de login
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Obter os usuários armazenados no localStorage
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+
+            // Verificar se o usuário existe e a senha está correta
+            const userExists = users.find(user => user.username === username && user.password === password);
+
+            if (userExists) {
+                alert(`Bem-vindo, ${username}!`);
+                // Redirecionamento para a URL desejada
+                window.location.href = "https://agenda-dev.vercel.app/";
+            } else {
+                alert("Usuário ou senha incorretos!");
+            }
+        }
+
+        // Função de cadastro
+        function signup() {
+            const newUsername = document.getElementById("new-username").value;
+            const newPassword = document.getElementById("new-password").value;
+
+            // Obter os usuários armazenados no localStorage
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+
+            // Verificar se o usuário já existe
+            const userExists = users.some(user => user.username === newUsername);
+
+            if (userExists) {
+                alert("Usuário já existe! Escolha outro nome de usuário.");
+            } else {
+                // Adicionar o novo usuário e salvar no localStorage
+                users.push({ username: newUsername, password: newPassword });
+                localStorage.setItem("users", JSON.stringify(users));
+                alert(`Usuário ${newUsername} cadastrado com sucesso!`);
+                showLogin(); // Volta para a página de login
+            }
+        }
+    </script>
+</body>
+</html>
