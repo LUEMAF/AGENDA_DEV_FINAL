@@ -4,7 +4,7 @@ import type { Props } from './index'
 
 export const Aside = styled.aside<Props>`
   padding: 16px;
-  background-color: #eee;
+  background-color: #1e2127;
   height: 100vh;
 
   @media screen and (max-width: 768px) {

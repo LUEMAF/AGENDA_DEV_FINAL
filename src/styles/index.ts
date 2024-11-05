@@ -14,7 +14,6 @@ const EstiloGlobal = createGlobalStyle`
 export const Container = styled.div`
   display: grid;
   grid-template-columns: 224px auto;
-  background-color: #c0c0c0;
 
   @media screen and (max-width: 768px) {
     display: flex;
@@ -26,6 +25,7 @@ export const MainContainer = styled.main`
   padding: 0 40px;
   height: 100vh;
   overflow-y: scroll;
+  background: #161719;
 
   @media screen and (max-width: 768px) {
     height: 45vh;
@@ -38,6 +38,7 @@ export const Titulo = styled.h2`
   margin-bottom: 40px;
   font-size: 18px;
   font-weight: bold;
+  color: #fff;
 `
 
 export const Campo = styled.input`
